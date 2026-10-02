@@ -16,4 +16,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4   # Updated to v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./CRUDAPP   # 👈 If your index.html is inside CRUDAPP folder
+          publish_dir: ./CRUDAPP   # 👈 Publish the CRUDAPP folder
