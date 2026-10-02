@@ -1,18 +1,19 @@
-name: Deploy to GitHub Pages   # Workflow name
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]       # Trigger: whenever you push to 'main'
+    branches: [ "main" ]   # Trigger: whenever you push to 'main'
 
 jobs:
   build:
-    runs-on: ubuntu-latest     # GitHub provides a Linux VM to run this job
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3   # Pulls your repo code into the VM
+        uses: actions/checkout@v4   # Updated to v4 (Node.js 24 compatible)
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3  # Action to publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4   # Updated to v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Auth token (auto provided)
-          publish_dir: ./                           # Folder to publish (root)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./CRUDAPP   # 👈 If your index.html is inside CRUDAPP folder
