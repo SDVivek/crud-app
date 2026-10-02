@@ -1,0 +1,18 @@
+name: Deploy to GitHub Pages   # Workflow name
+
+on:
+  push:
+    branches: [ "main" ]       # Trigger: whenever you push to 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest     # GitHub provides a Linux VM to run this job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3   # Pulls your repo code into the VM
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3  # Action to publish to GitHub Pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Auth token (auto provided)
+          publish_dir: ./                           # Folder to publish (root)
