@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { color: #333; }
+    input, button { margin: 5px; padding: 8px; }
+    table { border-collapse: collapse; width: 60%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #f4f4f4; }
+    button { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>CRUD Operations (JavaScript Only)</h2>
+
+  <!-- Create / Update Form -->
+  <input type="number" id="userId" placeholder="Enter ID">
+  <input type="text" id="userName" placeholder="Enter Name">
+  <button onclick="createUser()">Add User</button>
+  <button onclick="updateUser()">Update User</button>
+
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    let users = [];
+
+    function createUser() {
+      const id = parseInt(document.getElementById("userId").value);
+      const name = document.getElementById("userName").value;
+      if (!id || !name) {
+        alert("Please enter both ID and Name");
+        return;
+      }
+      users.push({ id, name });
+      readUsers();
+    }
+
+    function readUsers() {
+      const tbody = document.querySelector("#userTable tbody");
+      tbody.innerHTML = "";
+      users.forEach(user => {
+        const row = `
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>
+              <button onclick="editUser(${user.id})">Edit</button>
+              <button onclick="deleteUser(${user.id})">Delete</button>
+            </td>
+          </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function updateUser() {
+      const id = parseInt(document.getElementById("userId").value);
+      const name = document.getElementById("userName").value;
+      let user = users.find(u => u.id === id);
+      if (user) {
+        user.name = name;
+        readUsers();
+      } else {
+        alert("User not found!");
+      }
+    }
+
+    function deleteUser(id) {
+      users = users.filter(u => u.id !== id);
+      readUsers();
+    }
+
+    function editUser(id) {
+      let user = users.find(u => u.id === id);
+      if (user) {
+        document.getElementById("userId").value = user.id;
+        document.getElementById("userName").value = user.name;
+      }
+    }
+  </script>
+</body>
+</html>
